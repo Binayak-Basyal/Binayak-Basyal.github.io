@@ -58,7 +58,7 @@
   <div class="flex">
 
     <!-- Sidebar Section -->
-    <div class="sidebar-bg p-6 text-white">
+    <div id="sidebar" class="sidebar-bg p-6 text-white lg:block md:block hidden">
       <!-- Profile Image -->
       <div class="w-32 h-32 rounded-full overflow-hidden mx-auto mb-6">
         <img src="binayak.jpg" alt="Binayak Basyal" class="w-full h-full object-cover">
@@ -90,14 +90,18 @@
       </ul>
     </div>
 
-    <!-- Main Content Section -->
-    <div class="content">
+    <!-- Hamburger Menu (Mobile) -->
+    <div id="hamburger" class="lg:hidden md:hidden block p-4 text-white cursor-pointer" onclick="toggleSidebar()">
+      <i class="fas fa-bars text-2xl"></i>
+    </div>
 
+    <!-- Main Content Section -->
+    <div class="content flex-grow">
+      
       <!-- Home Section -->
       <div id="home" class="flex justify-center items-center bg-white mb-10">
         <img src="bin.jpg" alt="Binayak Basyal" class="w-full h-full object-cover">
       </div>
-
 
       <!-- About Me Section -->
       <div id="about"
@@ -155,6 +159,14 @@
 
   <!-- Font Awesome (for social icons) -->
   <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+  <!-- JavaScript for sidebar toggle -->
+  <script>
+    function toggleSidebar() {
+      const sidebar = document.getElementById('sidebar');
+      sidebar.classList.toggle('hidden');
+    }
+  </script>
 
 </body>
 
