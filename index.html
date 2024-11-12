@@ -8,6 +8,16 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+    }
+
     .sidebar-bg {
       background-size: cover;
       background-position: center;
@@ -49,14 +59,15 @@
       display: none;
     }
 
-    .sidebar-link, .mobile-navbar ul li a {
-  transition: all 0.3s ease;
-}
+    .sidebar-link,
+    .mobile-navbar ul li a {
+      transition: all 0.3s ease;
+    }
 
-/* Mobile menu toggle */
-.mobile-menu-toggle {
-  display: none;
-}
+    /* Mobile menu toggle */
+    .mobile-menu-toggle {
+      display: none;
+    }
 
     @media (max-width: 768px) {
       .sidebar-bg {
@@ -71,38 +82,68 @@
         display: block;
       }
 
-      .mobile-navbar {
+      .navbar {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        background-color: #1E3A8A;
-        padding: 10px;
+        padding: 10px 20px;
+        background-color: #333;
+        color: #fff;
       }
 
-      .mobile-navbar img {
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-      }
-
-      .mobile-navbar ul {
-        flex: 1;
+      /* Social Icons */
+      .social-icons {
         display: flex;
-        justify-content: space-evenly;
+        gap: 10px;
       }
 
-      .mobile-navbar ul li {
-        list-style: none;
-      }
-
-      .mobile-navbar ul li a {
-        color: white;
+      .social-icons a {
+        color: #fff;
+        font-size: 20px;
         text-decoration: none;
-        font-weight: bold;
       }
 
-      .mobile-navbar ul li a:hover {
-        color: #38BDF8;
+      /* Hamburger Menu */
+      .hamburger {
+        font-size: 24px;
+        cursor: pointer;
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+
+      .hamburger div {
+        width: 25px;
+        height: 3px;
+        background-color: #fff;
+      }
+
+      /* Dropdown Menu */
+      .dropdown-menu {
+        display: none;
+        position: absolute;
+        right: 20px;
+        top: 60px;
+        background-color: #444;
+        padding: 10px;
+        border-radius: 5px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+      }
+
+      .dropdown-menu a {
+        color: #fff;
+        text-decoration: none;
+        display: block;
+        padding: 8px;
+      }
+
+      .dropdown-menu a:hover {
+        background-color: #555;
+      }
+
+      /* Show menu when open */
+      .dropdown-menu.show {
+        display: block;
       }
     }
   </style>
@@ -126,10 +167,14 @@
         <a href="https://www.instagram.com/binayak.bsl/" class="text-light-blue hover:text-teal-400">
           <i class="fab fa-instagram"></i>
         </a>
-        <a href="www.linkedin.com/in/binayak-basyal-5b9248338 " class="text-light-blue hover:text-teal-400">
+        <a href="https://www.linkedin.com/in/binayak-basyal-5b9248338" class="text-light-blue hover:text-teal-400">
           <i class="fab fa-linkedin-in"></i>
         </a>
+        <a href="https://github.com/binayak-basyal" class="text-light-blue hover:text-teal-400">
+          <i class="fab fa-github"></i>
+        </a>
       </div>
+      
 
       <ul class="space-y-4">
         <li><a href="#home" class="sidebar-link">Home</a></li>
@@ -143,24 +188,48 @@
     <!-- Main Content Section -->
     <div class="content">
 
-      <!-- Mobile Navbar -->
-      <div class="mobile-menu">
-        <div class="mobile-navbar">
-          <div class="w-10 h-10 rounded-full overflow-hidden">
-            <img src="binayak.jpg" alt="Binayak Basyal">
-          </div>
-          <ul>
-            <li><a href="#home">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#resume">Resume</a></li>
-            <li><a href="#projects">projects</a></li>
-            <li><a href="#contact">Contact</a></li>
-          </ul>
+      <!-- Navbar -->
+      <div class="navbar fixed top-0 left-0 w-full bg-gray-800 text-white z-10 md:hidden">
+
+        <div class="w-12 h-12 rounded-full overflow-hidden  mb-1">
+          <img src="binayak.jpg" alt="Binayak Basyal" class="w-full h-full object-cover">
+        </div>
+        <!-- Social Media Icons -->
+        <div class="social-icons">
+          <a href="https://www.facebook.com/binayak.bsl" class="text-light-blue hover:text-teal-400">
+            <i class="fab fa-facebook-f"></i>
+          </a>
+          <a href="https://www.instagram.com/binayak.bsl/" class="text-light-blue hover:text-teal-400">
+            <i class="fab fa-instagram"></i>
+          </a>
+          <a href="https://www.linkedin.com/in/binayak-basyal-5b9248338" class="text-light-blue hover:text-teal-400">
+            <i class="fab fa-linkedin-in"></i>
+          </a>
+          <a href="https://github.com/binayak-basyal" class="text-light-blue hover:text-teal-400">
+            <i class="fab fa-github"></i>
+          </a>
+        </div>
+        
+
+        <!-- Hamburger Menu -->
+        <div class="hamburger" onclick="toggleMenu()">
+          <div></div>
+          <div></div>
+          <div></div>
         </div>
       </div>
 
+      <!-- Dropdown Menu -->
+      <div class="dropdown-menu md:hidden" id="dropdownMenu">
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#resume">Resume</a>
+        <a href="#projects">Project</a>
+      </div>
+
+
       <!-- Home Section -->
-      <div id="home" class="flex justify-center items-center bg-white mb-10">
+      <div id="home" class="flex justify-center items-center bg-white pt-16 md:pt-0 mb-10">
         <img src="bi.JPG" alt="Binayak Basyal" class="w-full h-full object-cover">
       </div>
 
@@ -203,57 +272,57 @@
 
 
 
-     <!-- Resume Section -->
-<div id="resume" class="mb-10">
-  <h2 class="text-xl font-semibold text-dark-blue mb-4">Resume</h2>
+      <!-- Resume Section -->
+      <div id="resume" class="mb-10">
+        <h2 class="text-xl font-semibold text-dark-blue mb-4">Resume</h2>
 
-  <div class="bg-white p-8 rounded-lg shadow-lg">
-    <!-- Header -->
-    <div class="border-b-2 border-gray-300 pb-4 mb-6">
-      <h3 class="text-xl font-semibold text-gray-800">Binayak Basyal</h3>
-      <p class="text-gray-600">Kathmandu, Nepal</p>
-      <p class="text-blue-500"><a href="mailto:bsl.binayak@gmail.com">bsl.binayak@gmail.com</a> | 9840458398</p>
-    </div>
+        <div class="bg-white p-8 rounded-lg shadow-lg">
+          <!-- Header -->
+          <div class="border-b-2 border-gray-300 pb-4 mb-6">
+            <h3 class="text-xl font-semibold text-gray-800">Binayak Basyal</h3>
+            <p class="text-gray-600">Kathmandu, Nepal</p>
+            <p class="text-blue-500"><a href="mailto:bsl.binayak@gmail.com">bsl.binayak@gmail.com</a> | 9840458398</p>
+          </div>
 
-    <!-- Education and Certifications -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-      <!-- Education Section -->
-      <div>
-        <h4 class="text-lg font-medium text-gray-800 mb-4">Education:</h4>
-        <div class="mb-6">
-          <p class="font-semibold text-gray-800">Bachelor of Computer Application (BCA)</p>
-          <p class="text-gray-600">Tribhuvan University, Ratna Rajya Laxmi Campus</p>
-          <p class="text-gray-500">Expected Graduation: October 16, 2025 (30-06-2082)</p>
-        </div>
-        <div class="mb-6">
-          <p class="font-semibold text-gray-800">Higher Secondary School (10+2)</p>
-          <p class="text-gray-600">Shree Damkada Secondary School, Palpa, Nepal</p>
-          <p class="text-gray-500">Completion Year: 2077 B.S. (2020 A.D.), GPA: 2.61</p>
-        </div>
-        <div>
-          <p class="font-semibold text-gray-800">SEE (Secondary Education Examination)</p>
-          <p class="text-gray-600">Shree Damkada Higher Secondary School, Palpa, Nepal</p>
-          <p class="text-gray-500">Completion Year: 2073 B.S. (2017 A.D.), GPA: 2.85</p>
+          <!-- Education and Certifications -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <!-- Education Section -->
+            <div>
+              <h4 class="text-lg font-medium text-gray-800 mb-4">Education:</h4>
+              <div class="mb-6">
+                <p class="font-semibold text-gray-800">Bachelor of Computer Application (BCA)</p>
+                <p class="text-gray-600">Tribhuvan University, Ratna Rajya Laxmi Campus</p>
+                <p class="text-gray-500">Expected Graduation: October 16, 2025 (30-06-2082)</p>
+              </div>
+              <div class="mb-6">
+                <p class="font-semibold text-gray-800">Higher Secondary School (10+2)</p>
+                <p class="text-gray-600">Shree Damkada Secondary School, Palpa, Nepal</p>
+                <p class="text-gray-500">Completion Year: 2077 B.S. (2020 A.D.), GPA: 2.61</p>
+              </div>
+              <div>
+                <p class="font-semibold text-gray-800">SEE (Secondary Education Examination)</p>
+                <p class="text-gray-600">Shree Damkada Higher Secondary School, Palpa, Nepal</p>
+                <p class="text-gray-500">Completion Year: 2073 B.S. (2017 A.D.), GPA: 2.85</p>
+              </div>
+            </div>
+
+            <!-- Certifications Section -->
+            <div>
+              <h4 class="text-lg font-medium text-gray-800 mb-4">Certifications:</h4>
+              <div class="mb-6">
+                <p class="font-semibold text-gray-800">Digital Marketing & Data Science Workshop</p>
+                <p class="text-gray-600">Sunway International Business School</p>
+                <p class="text-gray-500">15th June 2022 - 22nd June 2022 (7 days)</p>
+              </div>
+              <div>
+                <p class="font-semibold text-gray-800">Laravel Training (Web Development)</p>
+                <p class="text-gray-600">Ratna Rajya Laxmi Campus</p>
+                <p class="text-gray-500">28th Nov 2023 - 5th Jan 2024 (60 hours)</p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-
-      <!-- Certifications Section -->
-      <div>
-        <h4 class="text-lg font-medium text-gray-800 mb-4">Certifications:</h4>
-        <div class="mb-6">
-          <p class="font-semibold text-gray-800">Digital Marketing & Data Science Workshop</p>
-          <p class="text-gray-600">Sunway International Business School</p>
-          <p class="text-gray-500">15th June 2022 - 22nd June 2022 (7 days)</p>
-        </div>
-        <div>
-          <p class="font-semibold text-gray-800">Laravel Training (Web Development)</p>
-          <p class="text-gray-600">Ratna Rajya Laxmi Campus</p>
-          <p class="text-gray-500">28th Nov 2023 - 5th Jan 2024 (60 hours)</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
 
 
 
@@ -261,7 +330,8 @@
       <div id="projects" class="mb-10">
         <h2 class="text-xl font-semibold text-dark-blue mb-4">Projects</h2>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <div class="relative bg-white p-5 rounded-lg shadow-lg w-full h-full group hover:bg-gray-600 hover:filter-none transition-all">
+          <div
+            class="relative bg-white p-5 rounded-lg shadow-lg w-full h-full group hover:bg-gray-600 hover:filter-none transition-all">
             <div class="absolute inset-0 bg-cover bg-center"
               style="background-image: url('logo.png'); transition: all 0.3s;"></div>
             <div class="relative z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
@@ -272,7 +342,7 @@
               </p>
             </div>
           </div>
-          
+
         </div>
       </div>
 
@@ -294,7 +364,13 @@
 
   <!-- Font Awesome (for social icons) -->
   <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
-
+  <script>
+    // Toggle dropdown menu
+    function toggleMenu() {
+      const menu = document.getElementById('dropdownMenu');
+      menu.classList.toggle('show');
+    }
+  </script
 </body>
 
 </html>
